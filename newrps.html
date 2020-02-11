@@ -1,0 +1,55 @@
+<header>
+    <title>Whub, Paper, Scissors</title>
+</header>
+
+<div id='scoreKeeper'>
+    <h3>Number of your wins: <var id='playerWins'></var></h3>
+    <h3>Number of the comp wins: <var id='compWins'></var></h3>
+</div>
+
+<button value="Rock" id='rockbtn'>Rock</button>
+<button value="Paper" id='paperbtn'>Paper</button>
+<button value="Scissor" id='scissorsbtn'>Scissors</button>
+
+<script>
+    let compChoices = ["Rock", "Paper", "Scissors"]
+    compWinsCounter = 0
+    playerWinsCounter = 0
+    const rockbtn = document.querySelector('#rockbtn');
+    rockbtn.addEventListener('click', function (e) {
+        computerPlay("Rock");
+    });
+    const paperbtn = document.querySelector('#paperbtn');
+    paperbtn.addEventListener('click', function (e) {
+        playerSelection = "Paper";
+        computerPlay("Paper");
+    });
+    const scissorsbtn = document.querySelector('#scissorsbtn');
+    scissorsbtn.addEventListener('click', function (e) {
+        playerSelection = "Scissors";
+        computerPlay("Scissors");
+    });
+
+    function computerPlay(playerSelection, compSelection) {
+        compSelection = compChoices[Math.floor(Math.random() * compChoices.length)];
+        if (playerSelection == compSelection) {
+            alert('This is a tie');
+        } else if ((playerSelection == "Rock" && compSelection == "Paper") || (playerSelection == "Paper" && compSelection == "Scissors") || (playerSelection == "Scissors" && compSelection == "Rock")) {
+            compWinsCounter += 1
+            alert('The computer chose '+ compSelection + '. You lose this round.')
+            document.getElementById('compWins').innerHTML = compWinsCounter
+        }  if (compWinsCounter == 3) {
+            playerWinsCounter -= playerWinsCounter
+            compWinsCounter -= compWinsCounter
+            alert("You Lose T_T")
+        } else if ((playerSelection == "Paper" && compSelection == "Rock") || (playerSelection == "Scissors" && compSelection == "Paper") || (playerSelection == "Rock" && compSelection == "Scissors")) {
+            playerWinsCounter += 1
+            alert('The computer chose '+ compSelection + '. You win this round.')
+            document.getElementById('playerWins').innerHTML = playerWinsCounter
+        }  if (playerWinsCounter == 3) {
+            playerWinsCounter -= playerWinsCounter
+            compWinsCounter -= compWinsCounter
+            alert("You Win!")
+        }
+    }
+</script>
